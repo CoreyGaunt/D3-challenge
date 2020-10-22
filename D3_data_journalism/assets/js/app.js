@@ -88,8 +88,6 @@ d3.csv("assets/data/data.csv").then(function(health_data) {
 
     chart_group.call(toolTip);
 
-
-
     myCircles.on("mouseover", function(data) {
         toolTip.show(data,this);
     })
@@ -103,12 +101,22 @@ d3.csv("assets/data/data.csv").then(function(health_data) {
         .on("mouseout", function(data, index) {
             toolTip.hide(data);
         });
+    // this will create my y axis label
+    chart_group.append("text")
+        .attr("transform","rotate(-90)")
+        .attr("y", 0 - margin.left + 10)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .attr("class","axisText")
+        .text("Income ($)")
+        .attr("font-weight", 700);
 
-    chart_group.selectAll("circle")
-        .transition()
-        .duration(100000)
-        .attr("cx", d => xLinearScale(d.age))
-        .attr("cy", d => yLinearScale(d.income));
+    // this will create my x axis label
+    chart_group.append("text")
+        .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+        .attr("class", "axisText")
+        .text("Age")
+        .attr("font-weight", 700);
 //   }).catch(function(error) {
 //         console.log(error);
 
